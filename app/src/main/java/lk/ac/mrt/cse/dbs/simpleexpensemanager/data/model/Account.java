@@ -20,10 +20,19 @@ package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model;
  * This POJO holds the information about an account.
  */
 public class Account {
+    private int accountID; // JNR
     private String accountNo;
     private String bankName;
     private String accountHolderName;
     private double balance;
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }
 
     public String getAccountNo() {
         return accountNo;
