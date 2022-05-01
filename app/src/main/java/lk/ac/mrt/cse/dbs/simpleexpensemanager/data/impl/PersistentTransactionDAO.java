@@ -10,9 +10,11 @@ import android.support.annotation.Nullable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.DatabaseHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
@@ -45,13 +47,14 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_DATE,date.toString());
+        //cv.put(COLUMN_DATE,date.toString());
+        cv.put(COLUMN_DATE,strDate);
         cv.put(COLUMN_ACCOUNT_NO,accountNo);
         cv.put(COLUMN_EXPENSE_TYPE,expenseType.toString());
         cv.put(COLUMN_AMOUNT,amount);
 
         long insert = db.insert(TRANSACTION_TABLE,null,cv);
-        db.close();
+        //db.close();
     }
 
     @Override
@@ -70,9 +73,12 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
                 Double amount = cursor.getDouble(4);
 
                 ExpenseType expenseType = ExpenseType.valueOf(expenseTypeString);
-                Date date = null;
+                //Date date = null;
+                Date date = new Date();
                 try {
-                    date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    //String formattedDate = sdf.format(transaction.getDate());
+                    date = sdf.parse(dateString);
                     //date = dateString.
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -101,9 +107,13 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
                 Double amount = cursor.getDouble(4);
 
                 ExpenseType expenseType = ExpenseType.valueOf(expenseTypeString);
-                Date date = null;
+                //Date date = null;
+                Date date = new Date();
                 try {
-                    date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+                    //date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    //String formattedDate = sdf.format(transaction.getDate());
+                    date = sdf.parse(dateString);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

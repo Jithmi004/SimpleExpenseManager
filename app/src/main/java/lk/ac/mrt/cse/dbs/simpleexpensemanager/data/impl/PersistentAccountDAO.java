@@ -52,7 +52,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
             }while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
+        //db.close();
         return accountNumbersList;
     }
 
@@ -76,7 +76,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
             }while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
+        //db.close();
         return accountList;
     }
 
@@ -105,7 +105,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
             account = null;
         }
         cursor.close();
-        db.close();
+        //db.close();
         return account;
     }
 
@@ -119,14 +119,14 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
         cv.put(COLUMN_BALANCE,account.getBalance());
 
         long insert = db.insert(ACCOUNT_TABLE,null,cv);
-        db.close();
+        //db.close();
     }
 
     @Override
     public void removeAccount(String accountNo) throws InvalidAccountException {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ACCOUNT_TABLE, COLUMN_ACCOUNT_NO + "=" + accountNo, null);
-        db.close();
+        //db.close();
     }
 
     @Override
