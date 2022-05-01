@@ -82,9 +82,10 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
 
     @Override
     public Account getAccount(String accountNo) throws InvalidAccountException {
-        //String query = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_ACCOUNT_NO + " = " + accountNo;
+        //String query = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_ACCOUNT_NO + " LIKE " + "'%"+accountNo+"%'"; working
+        String query = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_ACCOUNT_NO + " = " + "'"+accountNo+"'";
         //String query = "SELECT * FROM ACCOUNT_TABLE WHERE ACCOUNT_NO = "+accountNo;
-        String query = "SELECT * FROM "+ACCOUNT_TABLE;
+        //String query = "SELECT * FROM "+ACCOUNT_TABLE; working
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
 
@@ -138,7 +139,8 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
         }else {
             balance+=amount;
         }
-        String query = "UPDATE " + ACCOUNT_TABLE + " SET " + COLUMN_BALANCE + "="+ balance + " WHERE " + COLUMN_ACCOUNT_NO + "=" +accountNo;
+        String query = "UPDATE " + ACCOUNT_TABLE + " SET " + COLUMN_BALANCE + "="+ balance + " WHERE " + COLUMN_ACCOUNT_NO + " = " + "'"+accountNo+"'";
+        //String query = "UPDATE " + ACCOUNT_TABLE + " SET " + COLUMN_BALANCE + "="+ balance + " WHERE " + COLUMN_ACCOUNT_NO + " LIKE " + "'%"+accountNo+"%'"; working
         db.execSQL(query);
     }
 
