@@ -13,14 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.DatabaseHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 
-public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO {
+public class PersistentAccountDAO extends DatabaseHelper implements AccountDAO {
     //MATCHING CONSTRUCTOR -JNR
     public PersistentAccountDAO(@Nullable Context context) {
-        super(context, "190496G.db", null, 1);
+        super(context);
     }
 
     public static final String ACCOUNT_TABLE = "ACCOUNT_TABLE";
@@ -49,7 +50,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
 
     @Override
     public List<Account> getAccountsList() {
-        List<Account> accounts = new ArrayList<>();
+        List<Account> accountList = new ArrayList<>();
         String query = "SELECT * FROM " + ACCOUNT_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
@@ -63,12 +64,12 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
                 Double balance = cursor.getDouble(4);
 
                 Account newAccount = new Account(accountNO,bank,accountHolder,balance);
-                accounts.add(newAccount);
+                accountList.add(newAccount);
             }while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
-        return accounts;
+        return accountList;
     }
 
     @Override
@@ -130,15 +131,4 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
         db.execSQL(query);
     }
 
-    //overriding methods of sqlitehelper superclass - JNR
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTableStatement = "CREATE TABLE " + ACCOUNT_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ACCOUNT_NO + " TEXT, " + COLUMN_BANK_NAME + " TEXT, " + COLUMN_ACCOUNT_HOLDER + " TEXT, " + COLUMN_BALANCE + " REAL)";
-        sqLiteDatabase.execSQL(createTableStatement);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
 }
