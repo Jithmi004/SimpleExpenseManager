@@ -92,16 +92,22 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
         Account account;
 
         if (cursor.moveToFirst()){
-            do {
-                //int accountID = cursor.getInt(0);
-                String accountNO = cursor.getString(1);
+            String accountNO = cursor.getString(1);
                 String bank = cursor.getString(2);
                 String accountHolder = cursor.getString(3);
                 Double balance = cursor.getDouble(4);
 
                 account = new Account(accountNO,bank,accountHolder,balance);
-                if (accountNO == accountNo){break;}
-            }while (cursor.moveToNext());
+//            do {
+                //int accountID = cursor.getInt(0);
+//                String accountNO = cursor.getString(1);
+//                String bank = cursor.getString(2);
+//                String accountHolder = cursor.getString(3);
+//                Double balance = cursor.getDouble(4);
+//
+//                account = new Account(accountNO,bank,accountHolder,balance);
+//                if (accountNO == accountNo){break;}
+//            }while (cursor.moveToNext());
         }else {
             account = null;
         }
@@ -126,7 +132,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
     @Override
     public void removeAccount(String accountNo) throws InvalidAccountException {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(ACCOUNT_TABLE, COLUMN_ACCOUNT_NO + "=" + accountNo, null);
+        db.delete(ACCOUNT_TABLE, COLUMN_ACCOUNT_NO + "=" + "'"+accountNo+"'", null);
         //db.close();
     }
 
