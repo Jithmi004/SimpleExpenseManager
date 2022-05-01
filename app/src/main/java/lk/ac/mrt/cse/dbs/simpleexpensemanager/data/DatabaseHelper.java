@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ACCOUNT_HOLDER = "ACCOUNT_HOLDER";
     public static final String COLUMN_BALANCE = "BALANCE";
 
-    public DatabaseHelper(@Nullable Context context) {
+    public DatabaseHelper(Context context) {
         super(context, "190496G.db", null, 1);
     }
 
