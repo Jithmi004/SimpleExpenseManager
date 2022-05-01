@@ -30,6 +30,7 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentAccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentTransactionDAO;
 
@@ -71,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         /***  Begin generating dummy data for In-Memory implementation  ***/
         //expenseManager = new InMemoryDemoExpenseManager();
         /*** END ***/
-        expenseManager = new PersistentExpenseManager(MainActivity.this);
-        PersistentTransactionDAO ptdao = new PersistentTransactionDAO(MainActivity.this);
-        PersistentAccountDAO padao = new PersistentAccountDAO(MainActivity.this);
-        expenseManager.setAccountsDAO(padao);
-        expenseManager.setTransactionsDAO(ptdao);
+        try {
+            expenseManager = new PersistentExpenseManager(MainActivity.this);
+        } catch (ExpenseManagerException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

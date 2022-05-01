@@ -39,6 +39,10 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
 
     @Override
     public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate = formatter.format(date);
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DATE,date.toString());
@@ -59,7 +63,7 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
 
         if (cursor.moveToFirst()){
             do {
-                int transactionID = cursor.getInt(0);
+                //int transactionID = cursor.getInt(0);
                 String dateString = cursor.getString(1);
                 String accountNo = cursor.getString(2);
                 String expenseTypeString = cursor.getString(3);
@@ -68,7 +72,8 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
                 ExpenseType expenseType = ExpenseType.valueOf(expenseTypeString);
                 Date date = null;
                 try {
-                    date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+                    date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
+                    //date = dateString.
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

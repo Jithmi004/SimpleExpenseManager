@@ -10,22 +10,19 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentTransactionDAO
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.MainActivity;
 
 public class PersistentExpenseManager extends ExpenseManager{
-    private static Context mycontext;
+    private Context mycontext;
 
-    public PersistentExpenseManager(Context context){
-        //super(context);
+    public PersistentExpenseManager(Context context) throws ExpenseManagerException {
         this.mycontext = context;
-        //System.out.println(context.toString() + "JIMIYA");
+        setup();
     }
     @Override
     public void setup() throws ExpenseManagerException {
-        //TransactionDAO persistentTransactionDAO = new PersistentTransactionDAO(getMycontext());
-        //setTransactionsDAO(persistentTransactionDAO);
+        TransactionDAO persistentTransactionDAO = new PersistentTransactionDAO(mycontext);
+        setTransactionsDAO(persistentTransactionDAO);
 
-        //AccountDAO persistentAccountDAO = new PersistentAccountDAO(getMycontext());
-        //setAccountsDAO(persistentAccountDAO);
+        AccountDAO persistentAccountDAO = new PersistentAccountDAO(mycontext);
+        setAccountsDAO(persistentAccountDAO);
     }
-    public static Context getMycontext(){
-        return mycontext;
-    }
+
 }

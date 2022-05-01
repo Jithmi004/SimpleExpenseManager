@@ -82,7 +82,9 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
 
     @Override
     public Account getAccount(String accountNo) throws InvalidAccountException {
-        String query = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_ACCOUNT_NO + " = " + accountNo.toString();
+        //String query = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_ACCOUNT_NO + " = " + accountNo;
+        //String query = "SELECT * FROM ACCOUNT_TABLE WHERE ACCOUNT_NO = "+accountNo;
+        String query = "SELECT * FROM "+ACCOUNT_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
 
@@ -90,13 +92,14 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
 
         if (cursor.moveToFirst()){
             do {
-                int accountID = cursor.getInt(0);
+                //int accountID = cursor.getInt(0);
                 String accountNO = cursor.getString(1);
                 String bank = cursor.getString(2);
                 String accountHolder = cursor.getString(3);
                 Double balance = cursor.getDouble(4);
 
                 account = new Account(accountNO,bank,accountHolder,balance);
+                if (accountNO == accountNo){break;}
             }while (cursor.moveToNext());
         }else {
             account = null;
