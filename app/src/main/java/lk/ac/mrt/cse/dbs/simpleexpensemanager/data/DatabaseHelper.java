@@ -4,32 +4,19 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String TRANSACTION_TABLE = "TRANSACTION_TABLE";
-    public static final String COLUMN_TRANSACTION_ID = "TRANSACTION_ID";
-    public static final String COLUMN_DATE = "DATE";
-    public static final String COLUMN_ACCOUNT_NO = "ACCOUNT_NO";
-    public static final String COLUMN_EXPENSE_TYPE = "EXPENSE_TYPE";
-    public static final String COLUMN_AMOUNT = "AMOUNT";
-
-    public static final String ACCOUNT_TABLE = "ACCOUNT_TABLE";
-    public static final String COLUMN_ID = "ID";
-    //public static final String COLUMN_ACCOUNT_NO = "ACCOUNT_NO";
-    public static final String COLUMN_BANK_NAME = "BANK_NAME";
-    public static final String COLUMN_ACCOUNT_HOLDER = "ACCOUNT_HOLDER";
-    public static final String COLUMN_BALANCE = "BALANCE";
-
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper(@Nullable Context context) {
         super(context, "190496G.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTableStatement = "CREATE TABLE " + TRANSACTION_TABLE + " (" + COLUMN_TRANSACTION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DATE + " TEXT, " + COLUMN_ACCOUNT_NO + " TEXT, " + COLUMN_EXPENSE_TYPE + " TEXT, " + COLUMN_AMOUNT + " REAL)";
-        sqLiteDatabase.execSQL(createTableStatement);
-        String createTableStatement2 = "CREATE TABLE " + ACCOUNT_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ACCOUNT_NO + " TEXT, " + COLUMN_BANK_NAME + " TEXT, " + COLUMN_ACCOUNT_HOLDER + " TEXT, " + COLUMN_BALANCE + " REAL)";
+        String createTableStatement1 = "CREATE TABLE " + Constants.ACCOUNT_TABLE + " (" + Constants.COLUMN_ACCOUNT_NO + " TEXT PRIMARY KEY, " + Constants.COLUMN_BANK_NAME + " TEXT, " + Constants.COLUMN_ACCOUNT_HOLDER + " TEXT, " + Constants.COLUMN_BALANCE + " REAL)";
+        sqLiteDatabase.execSQL(createTableStatement1);
+        String createTableStatement2 = "CREATE TABLE " + Constants.TRANSACTION_TABLE + " (" + Constants.COLUMN_TRANSACTION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Constants.COLUMN_DATE + " TEXT, " + Constants.COLUMN_ACCOUNT_NO + " TEXT REFERENCES " +Constants.ACCOUNT_TABLE +"("+Constants.COLUMN_ACCOUNT_NO +"), " + Constants.COLUMN_EXPENSE_TYPE + " TEXT, " + Constants.COLUMN_AMOUNT + " REAL)";
         sqLiteDatabase.execSQL(createTableStatement2);
     }
 
@@ -37,4 +24,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
 }
