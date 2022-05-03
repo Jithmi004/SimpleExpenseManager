@@ -41,7 +41,7 @@ public class PersistentTransactionDAO extends DatabaseHelper implements Transact
         cv.put(Constants.COLUMN_AMOUNT,amount);
 
         long insert = db.insert(Constants.TRANSACTION_TABLE,null,cv);
-        //db.close();
+        db.close();
     }
 
     @Override
@@ -71,6 +71,8 @@ public class PersistentTransactionDAO extends DatabaseHelper implements Transact
                 transactionList.add(newTransaction);
             }while (cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
         return transactionList;
     }
 
@@ -101,6 +103,8 @@ public class PersistentTransactionDAO extends DatabaseHelper implements Transact
                 paginatedTransactionList.add(newTransaction);
             }while (cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
         return paginatedTransactionList;
     }
 }
