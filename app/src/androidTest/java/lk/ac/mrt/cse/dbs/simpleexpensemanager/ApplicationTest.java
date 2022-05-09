@@ -16,14 +16,39 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.content.Context;
+import androidx.test.core.app.ApplicationProvider;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+public class ApplicationTest {
+    private ExpenseManager expenseManager;
+    @Before
+    public void setUp() throws ExpenseManagerException {
+        Context context = ApplicationProvider.getApplicationContext();
+        expenseManager = new PersistentExpenseManager(context);
+    }
+    @Test
+    public void testAddAccount(){
+        expenseManager.addAccount("2222qw","BOC","Jithmi",2000000);
+        assertTrue(expenseManager.getAccountNumbersList().contains("1234qw"));
+    }
+    @Test
+    public void addTransactionTest() throws InvalidAccountException {
+        int transactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
+        expenseManager.updateAccountBalance("2222qw",10,11,2022, ExpenseType.INCOME,"201");
+        int newTransactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
+        assertTrue(transactionCount+1==newTransactionCount);
+        //assertTrue(true);
     }
 }
