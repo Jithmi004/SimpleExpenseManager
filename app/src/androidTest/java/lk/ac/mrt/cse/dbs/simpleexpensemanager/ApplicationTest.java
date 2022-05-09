@@ -40,13 +40,13 @@ public class ApplicationTest {
     }
     @Test
     public void testAddAccount(){
-        expenseManager.addAccount("2222qw","BOC","Jithmi",2000000);
+        expenseManager.addAccount("222213qw","BOC","Jithmi",2000000);
         assertTrue(expenseManager.getAccountNumbersList().contains("1234qw"));
     }
     @Test
     public void addTransactionTest() throws InvalidAccountException {
         int transactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
-        expenseManager.updateAccountBalance("2222qw",10,11,2022, ExpenseType.INCOME,"201");
+        expenseManager.updateAccountBalance("222213qw",10,11,2022, ExpenseType.INCOME,"201");
         int newTransactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
         assertTrue(transactionCount+1==newTransactionCount);
         //assertTrue(true);
