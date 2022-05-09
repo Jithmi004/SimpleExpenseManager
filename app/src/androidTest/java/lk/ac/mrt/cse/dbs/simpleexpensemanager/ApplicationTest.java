@@ -38,11 +38,11 @@ public class ApplicationTest {
         Context context = ApplicationProvider.getApplicationContext();
         expenseManager = new PersistentExpenseManager(context);
     }
-//    @Test
-//    public void testAddAccount(){
-//        expenseManager.addAccount("99999qwr","BOC","Jithmi",2000000);
-//        assertTrue(expenseManager.getAccountNumbersList().contains("99999qwr"));
-//    }
+    @Test
+    public void testAddAccount(){
+        expenseManager.addAccount("99999qwr","BOC","Jithmi",2000000);
+        assertTrue(expenseManager.getAccountNumbersList().contains("99999qwr"));
+    }
     @Test
     public void addTransactionTest() throws InvalidAccountException {
         int transactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
