@@ -1,4 +1,4 @@
-#Tue May 10 02:13:25 IST 2022
+#Tue May 10 02:38:18 IST 2022
 base.0=D\:\\SimpleExpenseManager\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeDexDebugAndroidTest\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
