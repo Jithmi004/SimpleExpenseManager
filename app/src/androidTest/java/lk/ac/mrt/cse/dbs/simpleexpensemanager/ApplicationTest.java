@@ -40,8 +40,8 @@ public class ApplicationTest {
     }
     @Test
     public void testAddAccount(){
-        expenseManager.addAccount("222213qw","BOC","Jithmi",2000000);
-        assertTrue(expenseManager.getAccountNumbersList().contains("1234qw"));
+        expenseManager.addAccount("99999qwr","BOC","Jithmi",2000000);
+        assertTrue(expenseManager.getAccountNumbersList().contains("99999qwr"));
     }
     @Test
     public void addTransactionTest() throws InvalidAccountException {
