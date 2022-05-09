@@ -47,9 +47,9 @@ public class ApplicationTest {
     @Test
     public void addTransactionTest() throws InvalidAccountException {
         int transactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
-        //expenseManager.updateAccountBalance("123qwe",10,11,2022, ExpenseType.INCOME,"201");
+        expenseManager.updateAccountBalance("99999qwr",10,11,2022, ExpenseType.INCOME,"201");
         int newTransactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
-        //assertTrue(transactionCount+1==newTransactionCount);
-        assertTrue(true);
+        assertTrue(transactionCount+1==newTransactionCount);
+        //assertTrue(true);
     }
 }
