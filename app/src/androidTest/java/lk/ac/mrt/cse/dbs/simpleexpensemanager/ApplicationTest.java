@@ -28,28 +28,26 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerEx
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
 public class ApplicationTest {
     private ExpenseManager expenseManager;
     @Before
-    public void setUp() throws ExpenseManagerException {
+    public void setUpBeforeTests() throws ExpenseManagerException {
         Context context = ApplicationProvider.getApplicationContext();
         expenseManager = new PersistentExpenseManager(context);
     }
     @Test
-    public void testAddAccount(){
-        expenseManager.addAccount("88899qwr","BOC","Jithmi",2000000);
-        assertTrue(expenseManager.getAccountNumbersList().contains("88899qwr"));
-        //assertTrue(true);
+    public void addAccountTest(){
+        expenseManager.addAccount("56864rt","NDB","Nawoda",100000);
+        assertTrue(expenseManager.getAccountNumbersList().contains("56864rt"));
     }
     @Test
     public void addTransactionTest() throws InvalidAccountException {
         int transactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
-        expenseManager.updateAccountBalance("88899qwr",10,11,2022, ExpenseType.INCOME,"201");
+        /*for the account number, put the same account number used in addAccountTest. Otherwise the testcase may not pass
+        * since the account that you try to update the balance won't exist on the system
+        * */
+        expenseManager.updateAccountBalance("56864rt",10,11,2022, ExpenseType.INCOME,"201");
         int newTransactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
         assertTrue(transactionCount+1==newTransactionCount);
-        //assertTrue(true);
     }
 }
