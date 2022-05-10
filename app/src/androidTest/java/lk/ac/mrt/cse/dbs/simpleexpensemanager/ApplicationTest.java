@@ -37,14 +37,15 @@ public class ApplicationTest {
     }
     @Test
     public void addAccountTest(){
-        expenseManager.addAccount("88899qwr","NDB","Nawoda",100000);
-        assertTrue(expenseManager.getAccountNumbersList().contains("88899qwr"));
+        expenseManager.addAccount("3000y","NDB","Kevin",100000);
+        assertTrue(expenseManager.getAccountNumbersList().contains("3000y"));
     }
     @Test
     public void addTransactionTest() throws InvalidAccountException {
         int transactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
-        /*for the account number, put the same account number used in addAccountTest. Otherwise the testcase may not pass
-        * since the account that you try to update the balance won't exist on the system
+        /*for the account number, put the account number of a dummy account mentioned in Persistent Expense Manager.
+        *otherwise the testcase may not pass since the account that you try to update the balance won't exist on the
+        *system
         * */
         expenseManager.updateAccountBalance("1000q",10,11,2022, ExpenseType.INCOME,"50");
         int newTransactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
