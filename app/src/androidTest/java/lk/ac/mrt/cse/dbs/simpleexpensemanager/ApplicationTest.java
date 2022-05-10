@@ -46,7 +46,7 @@ public class ApplicationTest {
         /*for the account number, put the same account number used in addAccountTest. Otherwise the testcase may not pass
         * since the account that you try to update the balance won't exist on the system
         * */
-        expenseManager.updateAccountBalance("56864rt",10,11,2022, ExpenseType.INCOME,"201");
+        expenseManager.updateAccountBalance("88899qwr",10,11,2022, ExpenseType.INCOME,"50");
         int newTransactionCount = expenseManager.getTransactionsDAO().getAllTransactionLogs().size();
         assertTrue(transactionCount+1==newTransactionCount);
     }
